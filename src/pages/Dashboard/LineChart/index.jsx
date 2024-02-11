@@ -32,7 +32,7 @@ const LineChart = ({ data, yAxisName }) => {
   };
 
   return (
-    <Box width={"100%"} height={"350px"}>
+    <Box width={"1000px"} height={"350px"}>
       <Line
         data={data1}
         options={{
@@ -75,6 +75,12 @@ const LineChart = ({ data, yAxisName }) => {
                 size: 20,
               },
               padding: { top: 45, left: 0, right: 0, bottom: 0 },
+            },
+            legend: {
+              display: true,
+              labels: {
+                color: "rgb(255, 99, 132)",
+              },
             },
           },
         }}

@@ -36,7 +36,7 @@ const Table = () => {
         data && (
           <>
             <DataGrid
-              // width={"100%"}
+              width={"100%"}
               // height={"600px"}
               dataSource={data}
               showBorders={true}

@@ -10,7 +10,7 @@ const chartOptions = ["Net Sales", "Net Sales (with GST)", "No. of Sales"];
 const Dashboard = () => {
   const [selectChart, setSelectChart] = useState("Net Sales");
 
-  //generates 24 data and fills 0 for undefined array valuek
+  //generates 24 data and fills 0 for undefined array value
   const dataGenerator = (fieldName) => {
     const newData = Array(24).fill(0);
     data.map((row) => {
@@ -20,7 +20,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Stack gap={"30px"}>
+    <Stack gap={"30px"} alignItems={"center"}>
       <Table />
       <Box>
         <SelectorRadioGroup
