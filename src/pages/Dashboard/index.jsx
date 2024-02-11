@@ -10,7 +10,7 @@ const chartOptions = ["Net Sales", "Net Sales (with GST)", "No. of Sales"];
 const Dashboard = () => {
   const [selectChart, setSelectChart] = useState("Net Sales");
 
-  //generates 24 data and fills 0 for undefined array value
+  //generates 24 data and fills 0 for undefined array valuek
   const dataGenerator = (fieldName) => {
     const newData = Array(24).fill(0);
     data.map((row) => {
