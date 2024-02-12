@@ -32,6 +32,7 @@ const Dashboard = () => {
           <LineChart
             data={dataGenerator("netSalesTotal")}
             yAxisName={"Net Sales (AUD)"}
+            chartName={chartOptions[0]}
           />
         )}
 
@@ -39,6 +40,7 @@ const Dashboard = () => {
           <LineChart
             data={dataGenerator("netSalesTotalGST")}
             yAxisName="No. of Sales"
+            chartName={chartOptions[1]}
           />
         )}
 
@@ -46,6 +48,7 @@ const Dashboard = () => {
           <LineChart
             data={dataGenerator("noOfSales")}
             yAxisName="No. of Sales"
+            chartName={chartOptions[2]}
           />
         )}
       </Box>

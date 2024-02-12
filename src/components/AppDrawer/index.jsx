@@ -59,11 +59,19 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 export default function AppDrawer() {
   const [open, setOpen] = React.useState(true);
+  const [appBarHeight, setAppBarHeight] = React.useState(0);
 
   const appBarRef = React.useRef(null);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
+  React.useLayoutEffect(() => {
+    const handleResize = () => setAppBarHeight(appBarRef.current.clientHeight);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [appBarRef]);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -95,10 +103,7 @@ export default function AppDrawer() {
       <Main open={open} sx={{ padding: 0, margin: "20px" }}>
         <DrawerHeader
           sx={{
-            height:
-              appBarRef.current !== null
-                ? appBarRef.current.clientHeight
-                : "64px",
+            height: appBarHeight,
           }}
         />
         <Outlet />

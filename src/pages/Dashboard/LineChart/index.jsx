@@ -6,17 +6,28 @@ import {
   LinearScale,
   PointElement,
   CategoryScale,
+  Tooltip,
+  Legend,
+  Title,
 } from "chart.js";
 import { Box } from "@mui/material";
 
-Chart.register(LineElement, CategoryScale, LinearScale, PointElement);
+Chart.register(
+  LineElement,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  Tooltip,
+  Legend,
+  Title
+);
 
 const generateArrayOfNumber = (n) =>
   Array(n)
     .fill()
     .map((_, index) => index + ":00");
 
-const LineChart = ({ data, yAxisName }) => {
+const LineChart = ({ data, yAxisName, chartName }) => {
   const data1 = {
     labels: generateArrayOfNumber(24),
     datasets: [
@@ -66,7 +77,7 @@ const LineChart = ({ data, yAxisName }) => {
             tooltip: { enabled: true, position: "nearest" },
             title: {
               display: true,
-              text: "fig. Sales Line Chart",
+              text: `${chartName} Line Chart`,
               color: "grey",
               position: "bottom",
               align: "center",
@@ -74,12 +85,12 @@ const LineChart = ({ data, yAxisName }) => {
                 weight: "bold",
                 size: 20,
               },
-              padding: { top: 45, left: 0, right: 0, bottom: 0 },
+              padding: { top: 5 },
             },
             legend: {
               display: true,
               labels: {
-                color: "rgb(255, 99, 132)",
+                color: "black",
               },
             },
           },
@@ -94,6 +105,7 @@ const LineChart = ({ data, yAxisName }) => {
 LineChart.propTypes = {
   data: PropTypes.array,
   yAxisName: PropTypes.string,
+  chartName: PropTypes.string,
 };
 
 export default LineChart;
