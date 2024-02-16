@@ -32,7 +32,7 @@ const LineChart = ({ data, yAxisName, chartName }) => {
     labels: generateArrayOfNumber(24),
     datasets: [
       {
-        label: "Net-Sales",
+        label: "Net-Sales($)",
         data: data,
         fill: false,
         backgroundColor: "rgba(255,0,0,1.0",

@@ -11,10 +11,14 @@ import {
 } from "devextreme-react/data-grid";
 
 import { priceFormatter } from "./helpers";
-import { data } from "../data";
+// import { data } from "../data";
+import { useAppContext } from "../../../context/AppContext";
 
 const Table = () => {
   const [isLoading] = useState(false);
+  const {
+    data: { salesData },
+  } = useAppContext();
 
   let columns = [];
 
@@ -33,12 +37,12 @@ const Table = () => {
           shading={true}
         />
       ) : (
-        data && (
+        salesData && (
           <>
             <DataGrid
               width={"100%"}
               // height={"600px"}
-              dataSource={data}
+              dataSource={salesData}
               showBorders={true}
               columns={columns}
               allowColumnResizing={true}
@@ -57,10 +61,10 @@ const Table = () => {
                     summaryType="sum"
                     displayFormat={(value) =>
                       [
-                        "gst",
+                        "gstTotal",
                         "netSalesTotal",
-                        "netSalesTotalGST",
-                        "netDiscountTotal",
+                        "netSalesTotalWithGst",
+                        "totalSalesDiscount",
                       ].includes(col)
                         ? priceFormatter(value)
                         : parseInt(value).toLocaleString()

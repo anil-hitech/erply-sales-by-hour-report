@@ -1,1 +1,3 @@
-export const endpoints = {};
+export const endpoints = {
+  getSalesByHours: "getSalesByHours",
+};

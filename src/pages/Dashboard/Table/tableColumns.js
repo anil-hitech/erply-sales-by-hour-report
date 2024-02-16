@@ -7,11 +7,12 @@ const columns = [
   {
     dataField: "hour",
     caption: "Hour",
-    width: "50",
+    width: "100",
     alignment: "center",
+    customizeText: ({ value }) => value + ":00",
   },
   {
-    dataField: "salesQty",
+    dataField: "totalQty",
     caption: "Sales Quantity",
     width: "150",
     alignment: "center",
@@ -26,28 +27,28 @@ const columns = [
     customizeText: ({ value }) => priceFormatter(value),
   },
   {
-    dataField: "gst",
+    dataField: "gstTotal",
     caption: "GST 10%",
     width: "200",
     alignment: "center",
     customizeText: ({ value }) => priceFormatter(value),
   },
   {
-    dataField: "netSalesTotalGST",
-    caption: "Net Sales total GST",
+    dataField: "netSalesTotalWithGst",
+    caption: "Net Sales total(GST)",
     width: 250,
     alignment: "center",
     customizeText: ({ value }) => priceFormatter(value),
   },
   {
-    dataField: "netDiscountTotal",
+    dataField: "totalSalesDiscount",
     caption: "Net Discount Total",
     width: 200,
     alignment: "center",
     customizeText: ({ value }) => priceFormatter(value),
   },
   {
-    dataField: "noOfSales",
+    dataField: "numberOfSales",
     caption: "Number of Sales",
     width: 150,
     alignment: "center",
@@ -56,12 +57,12 @@ const columns = [
 ];
 
 export const summaryRow = [
-  "salesQty",
-  "gst",
+  "totalQty",
+  "gstTotal",
   "netSalesTotal",
-  "netSalesTotalGST",
-  "netDiscountTotal",
-  "noOfSales",
+  "netSalesTotalWithGst",
+  "totalSalesDiscount",
+  "numberOfSales",
 ];
 
 export default columns;

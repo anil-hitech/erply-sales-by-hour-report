@@ -1,22 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useCallback, useState } from "react";
+import React from "react";
 
 import {
   Box,
   Button,
   FormControl,
+  FormLabel,
   InputLabel,
   MenuItem,
-  Select,
 } from "@mui/material";
 import { DateBox } from "devextreme-react";
+import Select from "react-select";
 
-import { useFilterContext } from "../../context/FilterContext";
+import { useAppContext } from "../../context/AppContext";
 import formatDate from "../../utilities/formatDate";
 
 const FilterSection = () => {
-  const { locations, filters, setFilters, initialFilters } = useFilterContext();
+  const {
+    locations,
+    filters: { filters, setFilters, initialFilters },
+  } = useAppContext();
   const [localFilters, setLocalFilters] = useState(filters);
 
   const handleFilter = useCallback(() => {
@@ -36,7 +41,7 @@ const FilterSection = () => {
       flexWrap={"wrap"}
       py="10px"
     >
-      <FormControl>
+      {/* <FormControl>
         <InputLabel size="small" id="demo-simple-select-label">
           Location Filter
         </InputLabel>
@@ -61,7 +66,20 @@ const FilterSection = () => {
             </MenuItem>
           ))}
         </Select>
-      </FormControl>
+      </FormControl> */}
+
+      <Select
+        id="location"
+        isMulti
+        options={locations.map((loc) => ({ value: loc.id, label: loc.name }))}
+        onChange={(value) => console.log("selectedValue", value)}
+        styles={{
+          control: (baseStyles) => ({
+            ...baseStyles,
+            colorRendering: "#454512",
+          }),
+        }}
+      />
 
       <Box display={"flex"} alignItems={"center"} gap={"10px"}>
         <label style={{ width: "50px", color: "black", opacity: 0.7 }}>
