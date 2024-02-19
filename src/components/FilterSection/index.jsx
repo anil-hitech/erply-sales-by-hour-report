@@ -74,10 +74,29 @@ const FilterSection = () => {
         options={locations.map((loc) => ({ value: loc.id, label: loc.name }))}
         onChange={(value) => console.log("selectedValue", value)}
         styles={{
-          control: (baseStyles) => ({
-            ...baseStyles,
-            colorRendering: "#454512",
-          }),
+          control: (baseStyles, state) => {
+            // console.log("baseSTyles", baseStyles);
+            // console.log("state", state);
+            return {
+              ...baseStyles,
+
+              width: 500,
+              wordWrap: "break-word",
+            };
+          },
+        }}
+        theme={(theme) => {
+          console.log("theme", theme);
+          return {
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary: "black",
+              primary25: "silver",
+              primary50: "green",
+            },
+          };
         }}
       />
 

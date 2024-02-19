@@ -22,18 +22,19 @@ Chart.register(
   Title
 );
 
-const generateArrayOfNumber = (n) =>
-  Array(n)
+const generateArrayOfNumber = () =>
+  Array(24)
     .fill()
     .map((_, index) => index + ":00");
 
 const LineChart = ({ data, yAxisName, chartName }) => {
+  // console.log("data", data);
   const data1 = {
-    labels: generateArrayOfNumber(24),
+    labels: generateArrayOfNumber().slice(data.startingPoint, data.data.length),
     datasets: [
       {
         label: "Net-Sales($)",
-        data: data,
+        data: data.data,
         fill: false,
         backgroundColor: "rgba(255,0,0,1.0",
         borderColor: "rgba(255,0,0,0.2)",
@@ -103,7 +104,7 @@ const LineChart = ({ data, yAxisName, chartName }) => {
 };
 
 LineChart.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.object,
   yAxisName: PropTypes.string,
   chartName: PropTypes.string,
 };
