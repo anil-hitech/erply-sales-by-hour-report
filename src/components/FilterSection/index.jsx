@@ -84,20 +84,25 @@ const FilterSection = () => {
               wordWrap: "break-word",
             };
           },
+
+          option: (baseStyles) => ({
+            ...baseStyles,
+            color: "black",
+          }),
+
+          multiValue: (baseStyles) => ({
+            ...baseStyles,
+            flex: "1 0 auto",
+          }),
+
+          valueContainer: (baseStyles) => ({
+            ...baseStyles,
+            overflowX: "auto",
+            flexWrap: "nowrap",
+            scrollbarWidth: 0,
+          }),
         }}
-        theme={(theme) => {
-          console.log("theme", theme);
-          return {
-            ...theme,
-            borderRadius: 0,
-            colors: {
-              ...theme.colors,
-              primary: "black",
-              primary25: "silver",
-              primary50: "green",
-            },
-          };
-        }}
+        option
       />
 
       <Box display={"flex"} alignItems={"center"} gap={"10px"}>

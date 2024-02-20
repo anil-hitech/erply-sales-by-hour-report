@@ -9,6 +9,8 @@ import Table from "./Table";
 import LineChart from "./LineChart";
 import SelectorRadioGroup from "../../components/SelectorRadioGroup";
 import { useAppContext } from "../../context/AppContext";
+import ReactToPrint from "react-to-print";
+import { PrintRounded } from "@mui/icons-material";
 
 const chartOptions = ["Net Sales", "Net Sales (with GST)", "No. of Sales"];
 
@@ -62,7 +64,7 @@ const Dashboard = () => {
         const imgWidth = 210;
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
         pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-        pdf.save("output.pdf");
+        pdf.save("erplyChart.pdf");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -76,8 +78,21 @@ const Dashboard = () => {
         onClick={handleDownload}
         sx={{ alignSelf: "flex-end", marginRight: "280px" }}
       >
-        Download Charts
+        PDF
       </Button>
+      {/* <ReactToPrint
+        bodyClass="print-agreement"
+        content={() => boxRef.current}
+        trigger={() => (
+          <Button
+            variant="outlined"
+            onClick={handleDownload}
+            sx={{ alignSelf: "flex-end", marginRight: "280px" }}
+          >
+            PDF
+          </Button>
+        )}
+      /> */}
       <Box
         display={"flex"}
         flexDirection={"column"}

@@ -21,7 +21,7 @@ const Layout = () => {
         "clientDetail",
         JSON.stringify({
           clientCode: params?.get("clientCode"),
-          sessionKey: params?.get("sessionKey"),
+          // sessionKey: params?.get("sessionKey"),
         })
       );
   }
