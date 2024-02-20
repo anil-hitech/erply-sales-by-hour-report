@@ -92,6 +92,17 @@ const FilterSection = () => {
           multiValue: (baseStyles) => ({
             ...baseStyles,
             flex: "1 0 auto",
+            backgroundColor: "white",
+            border: "1px solid silver",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }),
+          multiValueRemove: (baseStyles) => ({
+            ...baseStyles,
+            backgroundColor: "salmon",
+            margin: "2px",
+            cursor: "pointer",
           }),
 
           valueContainer: (baseStyles) => ({
