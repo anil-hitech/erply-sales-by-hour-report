@@ -16,7 +16,7 @@ const Layout = () => {
       })
     );
   } else {
-    params.has("sessionKey") &&
+    params.has("clientCode") &&
       localStorage?.setItem(
         "clientDetail",
         JSON.stringify({

@@ -30,11 +30,14 @@ const generateArrayOfNumber = () =>
 const LineChart = ({ data, yAxisName, chartName }) => {
   // console.log("data", data);
   const data1 = {
-    labels: generateArrayOfNumber().slice(data.startingPoint, data.data.length),
+    labels: generateArrayOfNumber().slice(
+      data.startingPoint,
+      data.data?.length
+    ),
     datasets: [
       {
         label: "Net-Sales($)",
-        data: data.data,
+        data: data?.data,
         fill: false,
         backgroundColor: "rgba(255,0,0,1.0",
         borderColor: "rgba(255,0,0,0.2)",

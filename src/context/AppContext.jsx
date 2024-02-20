@@ -11,18 +11,18 @@ const initialFilters = {
   toDate: "",
 };
 
-const initialSalesDetail = {
-  HOUR: "00:00",
-  netSalesTotal: "3739.92",
-  gstTotal: "373.98",
-  netSalesTotalWithGst: "4113.90",
-  totalQty: "10.00",
-  totalSalesDiscount: "0.00000000",
-  numberOfSales: 1,
-};
+// const initialSalesDetail = {
+//   HOUR: "00",
+//   netSalesTotal: "0",
+//   gstTotal: "0",
+//   netSalesTotalWithGst: "0",
+//   totalQty: "0",
+//   totalSalesDiscount: "0",
+//   numberOfSales: 0,
+// };
 
 const AppContextProvider = ({ children }) => {
-  const [salesData, setSalesData] = useState([initialSalesDetail]);
+  const [salesData, setSalesData] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [locations, setLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

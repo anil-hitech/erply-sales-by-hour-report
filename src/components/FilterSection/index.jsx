@@ -1,15 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useCallback, useState } from "react";
-import React from "react";
 
 import {
   Box,
   Button,
-  FormControl,
-  FormLabel,
-  InputLabel,
-  MenuItem,
+  // FormControl,
+  // FormLabel,
+  // InputLabel,
+  // MenuItem,
 } from "@mui/material";
 import { DateBox } from "devextreme-react";
 import Select from "react-select";
@@ -74,7 +73,7 @@ const FilterSection = () => {
         options={locations.map((loc) => ({ value: loc.id, label: loc.name }))}
         onChange={(value) => console.log("selectedValue", value)}
         styles={{
-          control: (baseStyles, state) => {
+          control: (baseStyles) => {
             // console.log("baseSTyles", baseStyles);
             // console.log("state", state);
             return {

@@ -42,7 +42,7 @@ const Table = () => {
             <DataGrid
               width={"100%"}
               // height={"600px"}
-              dataSource={salesData}
+              dataSource={salesData || []}
               showBorders={true}
               columns={columns}
               allowColumnResizing={true}

@@ -1,16 +1,15 @@
 import { useRef, useState } from "react";
 import { Box, Button } from "@mui/material";
 import jsPDF from "jspdf";
-import * as htmlToImage from "html-to-image";
 import html2canvas from "html2canvas";
+// import * as htmlToImage from "html-to-image";
+// import ReactToPrint from "react-to-print";
 
 // import { data } from "./data";
 import Table from "./Table";
 import LineChart from "./LineChart";
 import SelectorRadioGroup from "../../components/SelectorRadioGroup";
 import { useAppContext } from "../../context/AppContext";
-import ReactToPrint from "react-to-print";
-import { PrintRounded } from "@mui/icons-material";
 
 const chartOptions = ["Net Sales", "Net Sales (with GST)", "No. of Sales"];
 
@@ -33,12 +32,13 @@ const Dashboard = () => {
         data: Array(isNaN(newArrLen) ? 0 : newArrLen).fill(0),
         startingPoint: Number(salesData[0].hour),
       };
+
       salesData.map((row) => {
         newData.data[Number(row.hour) - Number(salesData[0].hour)] =
           row?.[fieldName];
       });
       return newData;
-    } else return [];
+    } else return {};
   };
 
   const handleDownload = () => {
