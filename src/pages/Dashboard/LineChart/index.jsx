@@ -25,14 +25,14 @@ Chart.register(
 const generateArrayOfNumber = () =>
   Array(24)
     .fill()
-    .map((_, index) => index + ":00");
+    .map((_, index) => (index > 10 ? index + ":00" : "0" + index + ":00"));
 
 const LineChart = ({ data, yAxisName, chartName }) => {
   // console.log("data", data);
   const data1 = {
     labels: generateArrayOfNumber().slice(
-      data.startingPoint,
-      data.data?.length
+      data?.startingPoint,
+      data?.lastPoint + 1
     ),
     datasets: [
       {

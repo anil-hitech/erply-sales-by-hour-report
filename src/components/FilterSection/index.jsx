@@ -15,6 +15,7 @@ import Select from "react-select";
 
 import { useAppContext } from "../../context/AppContext";
 import formatDate from "../../utilities/formatDate";
+import ExportPDF from "../ExportPDF";
 
 const FilterSection = () => {
   const {
@@ -26,6 +27,14 @@ const FilterSection = () => {
   const handleFilter = useCallback(() => {
     setFilters(localFilters);
   }, [localFilters]);
+
+  const keys = Object.keys(locations);
+  const options = keys.map((key) => ({
+    label: key,
+    options: locations[key].map((loc) => ({ value: loc.id, label: loc.name })),
+  }));
+
+  // useEffect(() => console.log("localFilters", localFilters), [localFilters]);
 
   return (
     <Box
@@ -70,12 +79,18 @@ const FilterSection = () => {
       <Select
         id="location"
         isMulti
-        options={locations.map((loc) => ({ value: loc.id, label: loc.name }))}
-        onChange={(value) => console.log("selectedValue", value)}
+        value={localFilters.locationID}
+        // options={locations.map((loc) => ({ value: loc.id, label: loc.name }))}
+        options={options}
+        onChange={(value) => {
+          // console.log("selectedValue", value);
+          setLocalFilters((prev) => ({
+            ...prev,
+            locationID: value.map((item) => item),
+          }));
+        }}
         styles={{
           control: (baseStyles) => {
-            // console.log("baseSTyles", baseStyles);
-            // console.log("state", state);
             return {
               ...baseStyles,
 
@@ -89,6 +104,15 @@ const FilterSection = () => {
             color: "black",
           }),
 
+          groupHeading: (baseStyles) => ({
+            ...baseStyles,
+            backgroundColor: "Gainsboro",
+            fontSize: "larger",
+            textAlign: "center",
+            color: "black",
+            padding: "5px 0",
+          }),
+
           multiValue: (baseStyles) => ({
             ...baseStyles,
             flex: "1 0 auto",
@@ -98,6 +122,7 @@ const FilterSection = () => {
             flexDirection: "row",
             justifyContent: "space-between",
           }),
+
           multiValueRemove: (baseStyles) => ({
             ...baseStyles,
             backgroundColor: "salmon",
@@ -178,6 +203,8 @@ const FilterSection = () => {
         >
           Reset
         </Button>
+
+        <ExportPDF />
       </Box>
     </Box>
   );

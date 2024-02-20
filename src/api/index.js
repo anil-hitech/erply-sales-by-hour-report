@@ -4,7 +4,7 @@ import axios from "axios";
 // const token = loginData && loginData;
 
 let api = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: import.meta.env.VITE_BASE_URL_NEW,
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
@@ -15,17 +15,21 @@ let api = axios.create({
   },
 });
 
-api.interceptors.request.use((config) => ({
-  ...config,
-  params: {
-    ...config.params,
-    clientCode: JSON.parse(localStorage?.getItem("clientDetail"))["clientCode"],
-  },
-  function(error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    return Promise.reject(error);
-  },
-}));
+// api.interceptors.request.use((config) => ({
+//   ...config,
+//   // params: {
+//   //   ...config.params,
+//   //   clientCode: JSON.parse(localStorage?.getItem("clientDetail"))["clientCode"],
+//   // },
+//   data: {
+//     ...config.data,
+//     clientCode: JSON.parse(localStorage?.getItem("clientDetail"))["clientCode"],
+//   },
+//   function(error) {
+//     // Any status codes that falls outside the range of 2xx cause this function to trigger
+//     // Do something with response error
+//     return Promise.reject(error);
+//   },
+// }));
 
 export default api;

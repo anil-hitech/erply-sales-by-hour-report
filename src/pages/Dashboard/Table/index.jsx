@@ -1,9 +1,7 @@
-import { useState } from "react";
-import { DataGrid, LoadPanel } from "devextreme-react";
+import { DataGrid } from "devextreme-react";
 import tableColumns, { summaryRow } from "./tableColumns";
 import "devextreme/dist/css/dx.light.css";
 import {
-  Column,
   FilterRow,
   Scrolling,
   Summary,
@@ -15,7 +13,6 @@ import { priceFormatter } from "./helpers";
 import { useAppContext } from "../../../context/AppContext";
 
 const Table = () => {
-  const [isLoading] = useState(false);
   const {
     data: { salesData },
   } = useAppContext();
@@ -29,55 +26,42 @@ const Table = () => {
 
   return (
     <div>
-      {isLoading ? (
-        <LoadPanel
-          shadingColor="rgba(0,0,0,0.4)"
-          visible={isLoading}
-          showIndicator={true}
-          shading={true}
-        />
-      ) : (
-        salesData && (
-          <>
-            <DataGrid
-              width={"100%"}
-              // height={"600px"}
-              dataSource={salesData || []}
-              showBorders={true}
-              columns={columns}
-              allowColumnResizing={true}
-              rowAlternationEnabled={true}
-            >
-              {columns.map((column, index) => (
-                <Column key={index} {...column} />
-              ))}
-              <FilterRow visible={true} />
+      <DataGrid
+        width={"100%"}
+        height={"500px"}
+        dataSource={salesData || []}
+        showBorders={true}
+        columns={columns}
+        allowColumnResizing={true}
+        rowAlternationEnabled={true}
+        paging={{ pageSize: 25 }}
+      >
+        {/* {columns.map((column, index) => (
+          <Column key={index} {...column} />
+        ))} */}
+        <FilterRow visible={true} />
+        <Scrolling mode="virtual" />
 
-              <Summary>
-                {summaryRow.map((col, index) => (
-                  <TotalItem
-                    key={index}
-                    column={col}
-                    summaryType="sum"
-                    displayFormat={(value) =>
-                      [
-                        "gstTotal",
-                        "netSalesTotal",
-                        "netSalesTotalWithGst",
-                        "totalSalesDiscount",
-                      ].includes(col)
-                        ? priceFormatter(value)
-                        : parseInt(value).toLocaleString()
-                    } // Optional formatting
-                  />
-                ))}
-              </Summary>
-
-              <Scrolling rowRenderingMode="virtual" />
-            </DataGrid>
-          </>
-        )
-      )}
+        <Summary>
+          {summaryRow.map((col, index) => (
+            <TotalItem
+              key={index}
+              column={col}
+              summaryType="sum"
+              displayFormat={(value) =>
+                [
+                  "netTotal",
+                  "salesWithGST",
+                  "discountTotal",
+                  "gstTotal",
+                ].includes(col)
+                  ? priceFormatter(value)
+                  : parseInt(value).toLocaleString()
+              } // Optional formatting
+            />
+          ))}
+        </Summary>
+      </DataGrid>
     </div>
   );
 };
