@@ -4,7 +4,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { useAppContext } from "../../context/AppContext";
 // import * as htmlToImage from "html-to-image";
-// import ReactToPrint from "react-to-print";s
+import ReactToPrint from "react-to-print";
 
 const ExportPDF = () => {
   const { chartRef } = useAppContext();
@@ -41,7 +41,7 @@ const ExportPDF = () => {
 
   return (
     <>
-      <Button
+      {/* <Button
         variant="contained"
         onClick={handleDownload}
         sx={{
@@ -53,20 +53,28 @@ const ExportPDF = () => {
         }}
       >
         PDF
-      </Button>
-      {/* <ReactToPrint
+      </Button> */}
+      <ReactToPrint
         bodyClass="print-agreement"
-        content={() => boxRef.current}
+        content={() => chartRef.current}
+        documentTitle="chart_erply"
         trigger={() => (
           <Button
             variant="outlined"
             onClick={handleDownload}
-            sx={{ alignSelf: "flex-end", marginRight: "280px" }}
+            sx={{
+              color: "white",
+              backgroundColor: "YellowGreen",
+              fontWeight: "bold",
+              ":hover": {
+                backgroundColor: "SeaGreen",
+              },
+            }}
           >
             PDF
           </Button>
         )}
-      /> */}
+      />
     </>
   );
 };

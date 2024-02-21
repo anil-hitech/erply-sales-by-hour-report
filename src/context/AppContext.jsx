@@ -22,7 +22,9 @@ const initialFilters = {
 // };
 
 const AppContextProvider = ({ children }) => {
-  const queryCode = window.location?.search.split("=")[1];
+  const searchQueryArray = window.location?.search.split("=");
+  const queryCode =
+    searchQueryArray[0] === "clientCode" ? searchQueryArray[0] : "noCode";
   const [clientCode, setClientCode] = useState(queryCode);
   const [salesData, setSalesData] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
@@ -61,12 +63,19 @@ const AppContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    clearInterval(timer);
-    getSalesData();
-    const newInterval = setInterval(() => getSalesData(), 24 * 60 * 60 * 1000);
-    setInterval(newInterval);
-    setTimer(newInterval);
-  }, [filters]);
+    if (Number(clientCode) > 0) {
+      clearInterval(timer);
+      getSalesData();
+      const newInterval = setInterval(
+        () => getSalesData(),
+        24 * 60 * 60 * 1000
+      );
+      setInterval(newInterval);
+      setTimer(newInterval);
+    } else {
+      setIsLoading(false);
+    }
+  }, [filters, clientCode]);
 
   return (
     <AppContext.Provider

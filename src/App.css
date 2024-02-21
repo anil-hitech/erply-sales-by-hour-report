@@ -8,6 +8,14 @@ a {
   text-decoration: none;
 }
 
-.salesTable {
+/* .salesTable {
   max-height: 500px;
+} */
+
+@media print {
+  .print-agreement {
+    height: 100vh;
+    width: 150vw;
+    margin-top: 100px;
+  }
 }

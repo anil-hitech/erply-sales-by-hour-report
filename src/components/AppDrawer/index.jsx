@@ -10,6 +10,8 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import FilterSection from "../FilterSection";
+import { Typography } from "@mui/material";
+import { useAppContext } from "../../context/AppContext";
 
 const drawerWidth = 240;
 
@@ -60,8 +62,12 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function AppDrawer() {
   const [open, setOpen] = React.useState(true);
   const [appBarHeight, setAppBarHeight] = React.useState(0);
-
   const appBarRef = React.useRef(null);
+
+  const {
+    client: { clientCode },
+  } = useAppContext();
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -71,7 +77,7 @@ export default function AppDrawer() {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [appBarRef]);
+  }, [appBarRef, clientCode]);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -96,7 +102,16 @@ export default function AppDrawer() {
             <MenuIcon />
           </IconButton>
 
-          <FilterSection />
+          {Number(clientCode) > 0 ? (
+            <FilterSection />
+          ) : (
+            <Typography
+              sx={{ fontWeight: "bold", textAlign: "center", width: "100%" }}
+              color={"black"}
+            >
+              Client Code Not found
+            </Typography>
+          )}
         </Toolbar>
       </AppBar>
 

@@ -40,7 +40,7 @@ const Table = () => {
           <Column key={index} {...column} />
         ))} */}
         <FilterRow visible={true} />
-        <Scrolling mode="virtual" />
+        <Scrolling />
 
         <Summary>
           {summaryRow.map((col, index) => (
