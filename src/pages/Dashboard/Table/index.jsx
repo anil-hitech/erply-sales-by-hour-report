@@ -1,5 +1,5 @@
 import { DataGrid } from "devextreme-react";
-import tableColumns, { summaryRow } from "./tableColumns";
+import tableColumns, { excludedColumns, summaryRow } from "./tableColumns";
 import "devextreme/dist/css/dx.light.css";
 import {
   FilterRow,
@@ -19,7 +19,6 @@ const Table = () => {
 
   let columns = [];
 
-  const excludedColumns = ["orderedQty"];
   columns = tableColumns.filter(
     (col) => !excludedColumns.includes(col.dataField) //removing unnecessary columns for lineItem type
   );
@@ -28,7 +27,8 @@ const Table = () => {
     <div>
       <DataGrid
         width={"100%"}
-        height={"500px"}
+        // height={"500px"}
+        className="salesTable"
         dataSource={salesData || []}
         showBorders={true}
         columns={columns}

@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   Title,
+  Filler,
 } from "chart.js";
 import { Box } from "@mui/material";
 
@@ -19,37 +20,42 @@ Chart.register(
   PointElement,
   Tooltip,
   Legend,
-  Title
+  Title,
+  Filler
 );
 
 const generateArrayOfNumber = () =>
   Array(24)
     .fill()
-    .map((_, index) => (index > 10 ? index + ":00" : "0" + index + ":00"));
+    .map((_, index) => (index >= 10 ? index + ":00" : "0" + index + ":00"));
 
 const LineChart = ({ data, yAxisName, chartName }) => {
-  // console.log("data", data);
-  const data1 = {
-    labels: generateArrayOfNumber().slice(
-      data?.startingPoint,
-      data?.lastPoint + 1
-    ),
-    datasets: [
-      {
-        label: "Net-Sales($)",
-        data: data?.data,
-        fill: false,
-        backgroundColor: "rgba(255,0,0,1.0",
-        borderColor: "rgba(255,0,0,0.2)",
-        tension: 0,
-      },
-    ],
-  };
-
   return (
     <Box width={"1000px"} height={"350px"}>
       <Line
-        data={data1}
+        data={{
+          labels: generateArrayOfNumber().slice(
+            data?.startingPoint,
+            data?.lastPoint + 1
+          ),
+          datasets: [
+            {
+              label: "Net-Sales($)",
+              data: data?.data,
+              fill: {
+                target: "origin",
+                above: "rgba(0,0,255,0.3)", // Area will be red above the origin
+                // below: "rgb(0, 0, 255)", // And blue below the origin
+              },
+              backgroundColor: "rgba(0,0,255,0.1)",
+              borderColor: "rgba(0,0,255,0.7)",
+              tension: 0,
+              borderWidth: 5,
+              pointRadius: 2,
+              pointBorderWidth: 0,
+            },
+          ],
+        }}
         options={{
           scales: {
             y: {
@@ -96,6 +102,10 @@ const LineChart = ({ data, yAxisName, chartName }) => {
               labels: {
                 color: "black",
               },
+            },
+            filler: {
+              drawTime: "beforeDraw",
+              propagate: true,
             },
           },
         }}

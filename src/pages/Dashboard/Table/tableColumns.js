@@ -73,6 +73,8 @@ export const summaryRow = [
   "gstTotal",
 ];
 
+export const excludedColumns = ["gstTotal", "discountTotal", "discountPercent"];
+
 export default columns;
 
 //some fields to rem:

@@ -74,6 +74,7 @@ const Dashboard = () => {
               chartName={chartOptions[1]}
             />
           )}
+
           <SelectorRadioGroup
             options={chartOptions}
             state={selectChart}

@@ -34,7 +34,33 @@ const FilterSection = () => {
     options: locations[key].map((loc) => ({ value: loc.id, label: loc.name })),
   }));
 
-  // useEffect(() => console.log("localFilters", localFilters), [localFilters]);
+  const handleGroupClick = (props) => {
+    //check if all items of the group is selected
+    const isAllSelected = props.options.every((obj1) => {
+      if (localFilters.locationID.length !== 0)
+        return localFilters.locationID?.some(
+          (obj2) => obj2.value === obj1.value
+        );
+      else return false;
+    });
+
+    if (isAllSelected) {
+      //if all are selected remove the group from the selected list
+      const filteredArrayB = localFilters.locationID.filter(
+        (objB) => !props.options.some((objA) => objA.value === objB.value)
+      );
+      setLocalFilters((prev) => ({ ...prev, locationID: filteredArrayB }));
+    } else {
+      //making the selected arrays unique
+      const uniqueArray = [...localFilters.locationID, ...props.options].filter(
+        (obj, index, self) =>
+          index === self.findIndex((t) => t.value === obj.value)
+      );
+      setLocalFilters((prev) => ({ ...prev, locationID: uniqueArray }));
+    }
+  };
+
+  // useEffect(() => console.log("lcFilter", localFilters), [localFilters]);
 
   return (
     <Box
@@ -49,41 +75,16 @@ const FilterSection = () => {
       flexWrap={"wrap"}
       py="10px"
     >
-      {/* <FormControl>
-        <InputLabel size="small" id="demo-simple-select-label">
-          Location Filter
-        </InputLabel>
-        <Select
-          size="small"
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={localFilters.locationID}
-          label="Location Filter"
-          onChange={(e) =>
-            setLocalFilters((prev) => ({
-              ...prev,
-              locationID: e?.target.value,
-            }))
-          }
-          sx={{ width: "300px" }}
-        >
-          <MenuItem value="">None</MenuItem>
-          {locations?.map((location, index) => (
-            <MenuItem value={location.id} key={index}>
-              {location.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl> */}
-
       <Select
         id="location"
         isMulti
+        // menuIsOpen
+        closeMenuOnSelect={false}
+        placeholder="Select Locations..."
         value={localFilters.locationID}
-        // options={locations.map((loc) => ({ value: loc.id, label: loc.name }))}
         options={options}
+        hideSelectedOptions={false}
         onChange={(value) => {
-          // console.log("selectedValue", value);
           setLocalFilters((prev) => ({
             ...prev,
             locationID: value.map((item) => item),
@@ -99,18 +100,29 @@ const FilterSection = () => {
             };
           },
 
-          option: (baseStyles) => ({
+          option: (baseStyles, state) => ({
             ...baseStyles,
             color: "black",
+            backgroundColor: state.isSelected ? "#efefef" : "white",
+            cursor: "pointer",
+            ":hover": {
+              backgroundColor: state.isSelected ? "#efefef" : "#bdcaff",
+            },
           }),
 
           groupHeading: (baseStyles) => ({
             ...baseStyles,
-            backgroundColor: "Gainsboro",
+            // backgroundColor: "#bdcaff",
+            padding: "0",
             fontSize: "larger",
             textAlign: "center",
             color: "black",
-            padding: "5px 0",
+            cursor: "pointer",
+            // borderTop: "1px solid black",
+            // borderBottom: "3px solid  silver",
+            marginBottom: 0,
+            // ":hover": { backgroundColor: "PaleTurquoise" },
+            // textDecoration: "underline",
           }),
 
           multiValue: (baseStyles) => ({
@@ -137,7 +149,16 @@ const FilterSection = () => {
             scrollbarWidth: 0,
           }),
         }}
-        option
+        formatGroupLabel={(props) => (
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={() => handleGroupClick(props)}
+            sx={{ borderRadius: "0", fontWeight: "bold", fontSize: "large" }}
+          >
+            {props.label}
+          </Button>
+        )}
       />
 
       <Box display={"flex"} alignItems={"center"} gap={"10px"}>

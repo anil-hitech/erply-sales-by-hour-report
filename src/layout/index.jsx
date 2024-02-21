@@ -1,36 +1,19 @@
 import AppDrawer from "../components/AppDrawer";
 import { useSearchParams } from "react-router-dom";
-import FilterContextProvider from "../context/AppContext";
+import { useAppContext } from "../context/AppContext";
 
 const Layout = () => {
   const [params] = useSearchParams();
 
-  if (window.location.hostname == "localhost") {
-    localStorage?.setItem(
-      "clientDetail",
-      JSON.stringify({
-        clientCode: "608203",
-        // sessionKey: "ca9fb798dad9e7e87b02b5fa3e4771566f72c77234df",
-        // clientCode: "603424",
-        // sessionKey: "00224759b3b64a65085721d3fe7a893842dd25be4327",
-      })
-    );
-  } else {
-    params.has("clientCode") &&
-      localStorage?.setItem(
-        "clientDetail",
-        JSON.stringify({
-          clientCode: params?.get("clientCode"),
-          // sessionKey: params?.get("sessionKey"),
-        })
-      );
-  }
+  const {
+    client: { setClientCode },
+  } = useAppContext();
+
+  params.has("clientCode") && setClientCode(params?.get("clientCode"));
 
   return (
     <div className="flex flex-row ">
-      <FilterContextProvider>
-        <AppDrawer />
-      </FilterContextProvider>
+      <AppDrawer />
     </div>
   );
 };

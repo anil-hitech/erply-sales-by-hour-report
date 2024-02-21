@@ -22,6 +22,8 @@ const initialFilters = {
 // };
 
 const AppContextProvider = ({ children }) => {
+  const queryCode = window.location?.search.split("=")[1];
+  const [clientCode, setClientCode] = useState(queryCode);
   const [salesData, setSalesData] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [locations, setLocations] = useState([]);
@@ -38,10 +40,7 @@ const AppContextProvider = ({ children }) => {
     const formData = new FormData();
     formData.append("fromDate", from);
     formData.append("toDate", to);
-    formData.append(
-      "clientCode",
-      JSON.parse(localStorage?.getItem("clientDetail"))["clientCode"]
-    );
+    formData.append("clientCode", clientCode);
 
     if (filters.locationID !== "")
       filters.locationID?.map((location, index) =>
@@ -55,15 +54,9 @@ const AppContextProvider = ({ children }) => {
           res.data.data.sort((a, b) => Number(a.hour) - Number(b.hour))
         );
 
-        // const list = res.data.warehouseDetail;
-        // const locataionsNames = Object.keys(res.data.records.warehouseList);
-        // setLocations(
-        //   locataionsNames.map((loc) => ({ id: list[loc], name: loc }))
-        // );
-
         setLocations(res.data.warehouseDetail);
       })
-      .catch();
+      .catch((err) => console.log(err.message));
     setIsLoading(false);
   };
 
@@ -78,6 +71,7 @@ const AppContextProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        client: { clientCode, setClientCode },
         chartRef,
         locations,
         data: { salesData, isLoading },
