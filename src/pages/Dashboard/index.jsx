@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Checkbox, FormControlLabel } from "@mui/material";
 
 // import { data } from "./data";
 import Table from "./Table";
@@ -7,11 +7,11 @@ import LineChart from "./LineChart";
 import SelectorRadioGroup from "../../components/SelectorRadioGroup";
 import { useAppContext } from "../../context/AppContext";
 import LoadPanel from "devextreme-react/load-panel";
-
-const chartOptions = ["Net Sales with GST", "No. of Sales"];
+const chartOptions = ["Net Sales with GST", "Customer Count"];
 
 const Dashboard = () => {
   const [selectChart, setSelectChart] = useState(chartOptions[0]);
+  const [showGstInMobile, setShowGstInMobile] = useState(true);
 
   const {
     data: { salesData, isLoading },
@@ -46,6 +46,7 @@ const Dashboard = () => {
         visible={isLoading}
         showIndicator={true}
         shading={true}
+        showPane={true}
       />
 
       <Box
@@ -54,11 +55,15 @@ const Dashboard = () => {
         gap={"15px"}
         alignItems={"center"}
         ref={chartRef}
-        padding={"30px"}
+        padding={{ xs: "0px", sm: "30px" }}
         paddingTop={"10px"}
       >
         <Table />
-        <Box>
+        <Box
+          width={{ xs: "100%", md: "800px", lg: "1000px" }}
+          height={{ xs: "400px", md: "350px" }}
+          id="reportChart"
+        >
           {selectChart === chartOptions[0] && (
             <LineChart
               data={dataGenerator("salesWithGST")}
@@ -79,6 +84,19 @@ const Dashboard = () => {
             options={chartOptions}
             state={selectChart}
             setState={setSelectChart}
+          />
+          <FormControlLabel
+            sx={{ position: "relative", bottom: "17px" }}
+            control={
+              <Checkbox
+                checked={showGstInMobile}
+                onChange={() => {
+                  setShowGstInMobile((prev) => !prev);
+                }}
+                name="jason"
+              />
+            }
+            label="Display Sales total with GST in Table (working on this)"
           />
         </Box>
       </Box>

@@ -70,96 +70,98 @@ const FilterSection = () => {
       flexDirection={"row"}
       alignItems={"center"}
       justifyContent={"center"}
-      gap={"20px"}
+      gap={{ xs: "5px", md: "20px" }}
       alignSelf={"center"}
       flexWrap={"wrap"}
       py="10px"
     >
-      <Select
-        id="location"
-        isMulti
-        // menuIsOpen
-        closeMenuOnSelect={false}
-        placeholder="Select Locations..."
-        value={localFilters.locationID}
-        options={options}
-        hideSelectedOptions={false}
-        onChange={(value) => {
-          setLocalFilters((prev) => ({
-            ...prev,
-            locationID: value.map((item) => item),
-          }));
-        }}
-        styles={{
-          control: (baseStyles) => {
-            return {
-              ...baseStyles,
+      <Box width={{ xs: "100%", md: "500px" }}>
+        <Select
+          id="location"
+          isMulti
+          // menuIsOpen
+          closeMenuOnSelect={false}
+          placeholder="Select Locations..."
+          value={localFilters.locationID}
+          options={options}
+          hideSelectedOptions={false}
+          onChange={(value) => {
+            setLocalFilters((prev) => ({
+              ...prev,
+              locationID: value.map((item) => item),
+            }));
+          }}
+          styles={{
+            control: (baseStyles) => {
+              return {
+                ...baseStyles,
 
-              width: 500,
-              wordWrap: "break-word",
-            };
-          },
-
-          option: (baseStyles, state) => ({
-            ...baseStyles,
-            color: "black",
-            backgroundColor: state.isSelected ? "#efefef" : "white",
-            cursor: "pointer",
-            ":hover": {
-              backgroundColor: state.isSelected ? "#efefef" : "#bdcaff",
+                width: "auto",
+                wordWrap: "break-word",
+              };
             },
-          }),
 
-          groupHeading: (baseStyles) => ({
-            ...baseStyles,
-            // backgroundColor: "#bdcaff",
-            padding: "0",
-            fontSize: "larger",
-            textAlign: "center",
-            color: "black",
-            cursor: "pointer",
-            // borderTop: "1px solid black",
-            // borderBottom: "3px solid  silver",
-            marginBottom: 0,
-            // ":hover": { backgroundColor: "PaleTurquoise" },
-            // textDecoration: "underline",
-          }),
+            option: (baseStyles, state) => ({
+              ...baseStyles,
+              color: "black",
+              backgroundColor: state.isSelected ? "#efefef" : "white",
+              cursor: "pointer",
+              ":hover": {
+                backgroundColor: state.isSelected ? "#efefef" : "#bdcaff",
+              },
+            }),
 
-          multiValue: (baseStyles) => ({
-            ...baseStyles,
-            flex: "1 0 auto",
-            backgroundColor: "white",
-            border: "1px solid silver",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }),
+            groupHeading: (baseStyles) => ({
+              ...baseStyles,
+              // backgroundColor: "#bdcaff",
+              padding: "0",
+              fontSize: "larger",
+              textAlign: "center",
+              color: "black",
+              cursor: "pointer",
+              // borderTop: "1px solid black",
+              // borderBottom: "3px solid  silver",
+              marginBottom: 0,
+              // ":hover": { backgroundColor: "PaleTurquoise" },
+              // textDecoration: "underline",
+            }),
 
-          multiValueRemove: (baseStyles) => ({
-            ...baseStyles,
-            backgroundColor: "salmon",
-            margin: "2px",
-            cursor: "pointer",
-          }),
+            multiValue: (baseStyles) => ({
+              ...baseStyles,
+              flex: "1 0 auto",
+              backgroundColor: "white",
+              border: "1px solid silver",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }),
 
-          valueContainer: (baseStyles) => ({
-            ...baseStyles,
-            overflowX: "auto",
-            flexWrap: "nowrap",
-            scrollbarWidth: 0,
-          }),
-        }}
-        formatGroupLabel={(props) => (
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={() => handleGroupClick(props)}
-            sx={{ borderRadius: "0", fontWeight: "bold", fontSize: "large" }}
-          >
-            {props.label}
-          </Button>
-        )}
-      />
+            multiValueRemove: (baseStyles) => ({
+              ...baseStyles,
+              backgroundColor: "salmon",
+              margin: "2px",
+              cursor: "pointer",
+            }),
+
+            valueContainer: (baseStyles) => ({
+              ...baseStyles,
+              overflowX: "auto",
+              flexWrap: "nowrap",
+              scrollbarWidth: 0,
+            }),
+          }}
+          formatGroupLabel={(props) => (
+            <Button
+              variant="contained"
+              fullWidth
+              onClick={() => handleGroupClick(props)}
+              sx={{ borderRadius: "0", fontWeight: "bold", fontSize: "large" }}
+            >
+              {props.label}
+            </Button>
+          )}
+        />
+      </Box>
 
       <Box display={"flex"} alignItems={"center"} gap={"10px"}>
         <label style={{ width: "50px", color: "black", opacity: 0.7 }}>

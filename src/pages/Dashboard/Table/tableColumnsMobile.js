@@ -3,11 +3,11 @@ import { handleNullValue, priceFormatter } from "./helpers";
 // const numColWidth = "30%";
 // const nameColWidth = "20%";
 
-const columns = [
+const columnsMobile = [
   {
     dataField: "hour",
     caption: "Hour",
-    width: "auto",
+    width: "50px",
     alignment: "center",
     customizeText: ({ value }) =>
       Number(value) < 10 ? "0" + value + ":00" : value + ":00",
@@ -15,21 +15,21 @@ const columns = [
   {
     dataField: "soldQuantity",
     caption: "Item Sold",
-    width: "auto",
+    width: "60px",
     alignment: "center",
     customizeText: ({ value }) => parseInt(value).toLocaleString(),
   },
   {
     dataField: "noOfSales",
     caption: "Customer Count",
-    width: "auto",
+    width: "60px",
     alignment: "center",
     customizeText: ({ value }) => parseInt(value).toLocaleString(),
   },
   {
     dataField: "netTotal",
     caption: "Net Sales total",
-    width: "auto",
+    width: "95px",
     alignment: "center",
     calculateCellValue: (rowData) => handleNullValue(rowData.netTotal),
     customizeText: ({ value }) => priceFormatter(value),
@@ -44,7 +44,7 @@ const columns = [
   {
     dataField: "salesWithGST",
     caption: "Sales total with GST",
-    width: "auto",
+    width: "95px",
     alignment: "center",
     customizeText: ({ value }) => priceFormatter(value),
   },
@@ -73,9 +73,9 @@ export const summaryRow = [
   "gstTotal",
 ];
 
-export const excludedColumns = ["gstTotal", "discountTotal", "discountPercent"];
+// export const excludedColumns = ["gstTotal", "discountTotal", "discountPercent"];
 
-export default columns;
+export default columnsMobile;
 
 //some fields to rem:
 //   calculateCellValue: (rowData) => handleNullValue(rowData.received),

@@ -9,7 +9,11 @@ const SelectorRadioGroup = ({ options, state, setState }) => {
       onChange={(_, value) => setState(value)}
       sx={{ marginTop: "0px", mb: "15px", alignItems: "center" }}
     >
-      <Typography fontWeight={"bold"} mr={"10px"}>
+      <Typography
+        fontWeight={"bold"}
+        mr={"10px"}
+        display={{ xs: "none", sm: "block" }}
+      >
         Select :
       </Typography>
 
