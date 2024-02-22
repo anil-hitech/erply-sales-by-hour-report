@@ -102,6 +102,19 @@ export default function AppDrawer() {
             <MenuIcon />
           </IconButton>
 
+          <Typography
+            sx={{
+              color: "black",
+              width: "250px",
+              fontSize: "larger",
+              fontWeight: "bold",
+              textDecoration: "underline",
+            }}
+            flexGrow={1}
+          >
+            Sales Report by Hour
+          </Typography>
+
           {Number(clientCode) > 0 ? (
             <FilterSection />
           ) : (

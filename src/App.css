@@ -11,7 +11,12 @@ a {
 /* .salesTable {
   max-height: 500px;
 } */
-
+/* .dx-datagrid-headers.dx-datagrid-nowrap {
+  position: sticky;
+  top: 120px;
+  z-index: 120;
+  background-color: white;
+} */
 @media print {
   .print-agreement {
     height: 100vh;

@@ -22,10 +22,10 @@ const initialFilters = {
 // };
 
 const AppContextProvider = ({ children }) => {
-  const searchQueryArray = window.location?.search.split("=");
-  const queryCode =
-    searchQueryArray[0] === "clientCode" ? searchQueryArray[0] : "noCode";
-  const [clientCode, setClientCode] = useState(queryCode);
+  const queryParams = new URLSearchParams(window.location.search);
+
+  const [clientCode, setClientCode] = useState(queryParams.get("clientCode"));
+  const [sessionKey, setSessionKey] = useState(queryParams.get("sessionKey"));
   const [salesData, setSalesData] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [locations, setLocations] = useState([]);
@@ -43,6 +43,7 @@ const AppContextProvider = ({ children }) => {
     formData.append("fromDate", from);
     formData.append("toDate", to);
     formData.append("clientCode", clientCode);
+    formData.append("sessionKey", sessionKey);
 
     if (filters.locationID !== "")
       filters.locationID?.map((location, index) =>
@@ -77,10 +78,15 @@ const AppContextProvider = ({ children }) => {
     }
   }, [filters, clientCode]);
 
+  // useEffect(() => {
+  //   console.log("sesionKey", sessionKey);
+  //   console.log("clientCode", clientCode);
+  // }, [sessionKey, clientCode]);
+
   return (
     <AppContext.Provider
       value={{
-        client: { clientCode, setClientCode },
+        client: { clientCode, sessionKey, setSessionKey, setClientCode },
         chartRef,
         locations,
         data: { salesData, isLoading },
