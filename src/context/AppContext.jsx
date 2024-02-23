@@ -25,13 +25,19 @@ const initialFilters = {
 const AppContextProvider = ({ children }) => {
   const queryParams = new URLSearchParams(window.location.search);
 
-  const [clientCode, setClientCode] = useState(queryParams.get("clientCode"));
-  const [sessionKey, setSessionKey] = useState(queryParams.get("sessionKey"));
+  const [clientCode, setClientCode] = useState(
+    queryParams.get("clientCode") ?? ""
+  );
+  const [sessionKey, setSessionKey] = useState(
+    queryParams.get("sessionKey") ?? ""
+  );
   const [salesData, setSalesData] = useState([]);
   const [filters, setFilters] = useState(initialFilters);
   const [locations, setLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [timer, setTimer] = useState();
+  const [timer, setTimer] = useState(); //to api_call in intervals if neededed
+  const [isToster, setIsToaster] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const chartRef = useRef();
 
   //fetching re for dashboard
@@ -54,13 +60,21 @@ const AppContextProvider = ({ children }) => {
     await api
       .post(endpointsNew.getSalesByHour, formData)
       .then((res) => {
-        setSalesData(
-          res.data.data.sort((a, b) => Number(a.hour) - Number(b.hour))
-        );
+        if (res.data.data) {
+          setSalesData(
+            res.data?.data.sort((a, b) => Number(a.hour) - Number(b.hour))
+          );
+          setLocations(res.data.warehouseDetail);
+        }
 
-        setLocations(res.data.warehouseDetail);
+        if (res.data.status === "failed") {
+          setIsToaster(true);
+          setErrorMessage(res.data.msg);
+        }
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => {
+        console.log(err.message);
+      });
     setIsLoading(false);
   };
 
@@ -79,11 +93,6 @@ const AppContextProvider = ({ children }) => {
     }
   }, [filters, clientCode]);
 
-  // useEffect(() => {
-  //   console.log("sesionKey", sessionKey);
-  //   console.log("clientCode", clientCode);
-  // }, [sessionKey, clientCode]);
-
   return (
     <AppContext.Provider
       value={{
@@ -96,6 +105,7 @@ const AppContextProvider = ({ children }) => {
           setFilters,
           initialFilters,
         },
+        toster: { isToster, setIsToaster, errorMessage, setErrorMessage },
       }}
     >
       {children}

@@ -3,6 +3,7 @@ import {
   Box,
   Checkbox,
   FormControlLabel,
+  Snackbar,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
@@ -25,6 +26,7 @@ const Dashboard = () => {
   const {
     data: { salesData, isLoading },
     chartRef,
+    toster: { isToster, setIsToaster, errorMessage, setErrorMessage },
   } = useAppContext();
 
   //generates 24 data and fills 0 for undefined array value
@@ -113,6 +115,17 @@ const Dashboard = () => {
           </Box>
         </Box>
       )}
+      <Snackbar
+        // sx={{ color: "orange", borderRadius: "10px" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        open={isToster}
+        autoHideDuration={5000}
+        onClose={() => {
+          setIsToaster(false);
+          setErrorMessage();
+        }}
+        message={errorMessage}
+      />
     </Box>
   );
 };
