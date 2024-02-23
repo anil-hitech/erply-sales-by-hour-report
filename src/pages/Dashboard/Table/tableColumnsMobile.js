@@ -15,21 +15,21 @@ const columnsMobile = [
   {
     dataField: "soldQuantity",
     caption: "Item Sold",
-    width: "60px",
+    width: "80px",
     alignment: "center",
     customizeText: ({ value }) => parseInt(value).toLocaleString(),
   },
   {
     dataField: "noOfSales",
     caption: "Customer Count",
-    width: "60px",
+    width: "80px",
     alignment: "center",
     customizeText: ({ value }) => parseInt(value).toLocaleString(),
   },
   {
     dataField: "netTotal",
     caption: "Net Sales total",
-    width: "95px",
+    width: "auto",
     alignment: "center",
     calculateCellValue: (rowData) => handleNullValue(rowData.netTotal),
     customizeText: ({ value }) => priceFormatter(value),
@@ -44,7 +44,7 @@ const columnsMobile = [
   {
     dataField: "salesWithGST",
     caption: "Sales total with GST",
-    width: "95px",
+    width: "auto",
     alignment: "center",
     customizeText: ({ value }) => priceFormatter(value),
   },

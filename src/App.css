@@ -32,7 +32,6 @@ a {
 
   .reportTable {
     width: 100%;
-    margin: 20px;
     /* margin-left: 200px; */
   }
 
@@ -45,29 +44,3 @@ a {
     margin: 25px;
   }
 }
-/* 
-@media screen and (max-width: 1566px) {
-  .dx-datagrid-headers.dx-datagrid-nowrap {
-    top: 117px;
-  }
-}
-@media screen and (max-width: 974px) {
-  .dx-datagrid-headers.dx-datagrid-nowrap {
-    top: 172px;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  @media print {
-    #reportTable {
-      width: 80%;
-      margin: 20px;
-    }
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .dx-datagrid-headers.dx-datagrid-nowrap {
-    top: 215px;
-  }
-} */

@@ -2,13 +2,14 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import api from "../api";
 import PropTypes from "prop-types";
 import { endpointsNew } from "../api/endpoints";
+import formatDate from "../utilities/formatDate";
 
 const AppContext = createContext();
 
 const initialFilters = {
   locationID: "",
-  fromDate: "",
-  toDate: "",
+  fromDate: formatDate(new Date()),
+  toDate: formatDate(new Date()),
 };
 
 // const initialSalesDetail = {

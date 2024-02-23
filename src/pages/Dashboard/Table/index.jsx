@@ -17,33 +17,36 @@ import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const Table = ({ showGSTMobile }) => {
-  const [excludedColumnsList, setExcludedColumnsList] =
-    useState(excludedColumns);
-  const {
-    data: { salesData },
-  } = useAppContext();
-
-  const excludeColumnsFunc = (array) => {
-    return array.filter(
-      (col) => !excludedColumnsList.includes(col.dataField) //removing unnecessary columns for lineItem type
-    );
-  };
-
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [columns, setColumns] = useState([]);
 
-  useEffect(() => {
-    matches
-      ? setColumns(excludeColumnsFunc(tableColumnsMobile))
-      : setColumns(excludeColumnsFunc(tableColumns));
-  }, [matches]);
+  const {
+    data: { salesData },
+  } = useAppContext();
+
+  const columnFilter = (array) => {
+    return array.filter(
+      (col) => !excludedColumns.includes(col.dataField) //removing unnecessary columns from array of listed columns
+    );
+  };
 
   useEffect(() => {
-    // matches &&
-    //   (showGSTMobile ? setExcludedColumnsList(prev()) : setExcludedColumnsList());
-  }, [showGSTMobile]);
+    if (matches) {
+      showGSTMobile
+        ? setColumns(
+            columnFilter(tableColumnsMobile).filter(
+              (col) => !(col.dataField === "netTotal")
+            )
+          )
+        : setColumns(
+            columnFilter(tableColumnsMobile).filter(
+              (col) => !(col.dataField === "salesWithGST")
+            )
+          );
+    } else setColumns(columnFilter(tableColumns));
+  }, [matches, showGSTMobile]);
 
   return (
     <Box

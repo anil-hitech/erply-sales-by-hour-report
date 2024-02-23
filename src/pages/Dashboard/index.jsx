@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Box, Checkbox, FormControlLabel } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 
 // import { data } from "./data";
 import Table from "./Table";
@@ -10,6 +16,9 @@ import LoadPanel from "devextreme-react/load-panel";
 const chartOptions = ["Net Sales with GST", "Customer Count"];
 
 const Dashboard = () => {
+  const theme = useTheme();
+  const smMatchs = useMediaQuery(theme.breakpoints.down("sm"));
+
   const [selectChart, setSelectChart] = useState(chartOptions[0]);
   const [showGstInMobile, setShowGstInMobile] = useState(true);
 
@@ -59,7 +68,7 @@ const Dashboard = () => {
           padding={{ xs: "0px", sm: "30px" }}
           paddingTop={"10px"}
         >
-          <Table />
+          <Table showGSTMobile={showGstInMobile} />
           <Box
             width={{ xs: "100%", md: "800px", lg: "1000px" }}
             height={{ xs: "400px", md: "350px" }}
@@ -86,19 +95,21 @@ const Dashboard = () => {
               state={selectChart}
               setState={setSelectChart}
             />
-            <FormControlLabel
-              sx={{ position: "relative", bottom: "17px" }}
-              control={
-                <Checkbox
-                  checked={showGstInMobile}
-                  onChange={() => {
-                    setShowGstInMobile((prev) => !prev);
-                  }}
-                  name="jason"
-                />
-              }
-              label="Display Sales total with GST in Table (working on this)"
-            />
+            {smMatchs && (
+              <FormControlLabel
+                sx={{ position: "relative", bottom: "17px" }}
+                control={
+                  <Checkbox
+                    checked={showGstInMobile}
+                    onChange={() => {
+                      setShowGstInMobile((prev) => !prev);
+                    }}
+                    name="jason"
+                  />
+                }
+                label="Display Sales total with GST in Table "
+              />
+            )}
           </Box>
         </Box>
       )}
