@@ -5,6 +5,8 @@ import { useCallback, useState } from "react";
 import {
   Box,
   Button,
+  useMediaQuery,
+  useTheme,
   // FormControl,
   // FormLabel,
   // InputLabel,
@@ -18,6 +20,9 @@ import formatDate from "../../utilities/formatDate";
 import ExportPDF from "../ExportPDF";
 
 const FilterSection = () => {
+  const theme = useTheme();
+  const smMatch = useMediaQuery(theme.breakpoints.down("sm"));
+
   const {
     locations,
     filters: { filters, setFilters, initialFilters },
@@ -163,12 +168,19 @@ const FilterSection = () => {
         />
       </Box>
 
-      <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-        <label style={{ width: "50px", color: "black", opacity: 0.7 }}>
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        gap={"10px"}
+        width={{ xs: "100%", sm: "fit-content" }}
+      >
+        <label
+          style={{ width: "50px", color: "black", opacity: 0.7, flexShrink: 0 }}
+        >
           From :
         </label>
         <DateBox
-          width={"150px"}
+          width={smMatch ? "100%" : "150px"}
           placeholder="dd/mm/yyyy"
           value={
             localFilters.fromDate !== ""
@@ -186,12 +198,19 @@ const FilterSection = () => {
         />
       </Box>
 
-      <Box display={"flex"} alignItems={"center"} gap={"10px"}>
-        <label style={{ width: "50px", color: "black", opacity: 0.7 }}>
+      <Box
+        display={"flex"}
+        alignItems={"center"}
+        gap={"10px"}
+        width={{ xs: "100%", sm: "fit-content" }}
+      >
+        <label
+          style={{ width: "50px", color: "black", opacity: 0.7, flexShrink: 0 }}
+        >
           To :
         </label>
         <DateBox
-          width={"150px"}
+          width={smMatch ? "100%" : "150px"}
           placeholder="dd/mm/yyyy"
           value={
             localFilters.toDate !== "" ? new Date(localFilters.toDate) : null

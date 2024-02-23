@@ -49,57 +49,59 @@ const Dashboard = () => {
         showPane={true}
       />
 
-      <Box
-        display={"flex"}
-        flexDirection={"column"}
-        gap={"15px"}
-        alignItems={"center"}
-        ref={chartRef}
-        padding={{ xs: "0px", sm: "30px" }}
-        paddingTop={"10px"}
-      >
-        <Table />
+      {!isLoading && (
         <Box
-          width={{ xs: "100%", md: "800px", lg: "1000px" }}
-          height={{ xs: "400px", md: "350px" }}
-          id="reportChart"
+          display={"flex"}
+          flexDirection={"column"}
+          gap={"15px"}
+          alignItems={"center"}
+          ref={chartRef}
+          padding={{ xs: "0px", sm: "30px" }}
+          paddingTop={"10px"}
         >
-          {selectChart === chartOptions[0] && (
-            <LineChart
-              data={dataGenerator("salesWithGST")}
-              yAxisName="Net Sales (AUD)"
-              chartName={chartOptions[0]}
-            />
-          )}
-
-          {selectChart === chartOptions[1] && (
-            <LineChart
-              data={dataGenerator("noOfSales")}
-              yAxisName="No. of Sales"
-              chartName={chartOptions[1]}
-            />
-          )}
-
-          <SelectorRadioGroup
-            options={chartOptions}
-            state={selectChart}
-            setState={setSelectChart}
-          />
-          <FormControlLabel
-            sx={{ position: "relative", bottom: "17px" }}
-            control={
-              <Checkbox
-                checked={showGstInMobile}
-                onChange={() => {
-                  setShowGstInMobile((prev) => !prev);
-                }}
-                name="jason"
+          <Table />
+          <Box
+            width={{ xs: "100%", md: "800px", lg: "1000px" }}
+            height={{ xs: "400px", md: "350px" }}
+            className="reportChart"
+          >
+            {selectChart === chartOptions[0] && (
+              <LineChart
+                data={dataGenerator("salesWithGST")}
+                yAxisName="Net Sales (AUD)"
+                chartName={chartOptions[0]}
               />
-            }
-            label="Display Sales total with GST in Table (working on this)"
-          />
+            )}
+
+            {selectChart === chartOptions[1] && (
+              <LineChart
+                data={dataGenerator("noOfSales")}
+                yAxisName="No. of Sales"
+                chartName={chartOptions[1]}
+              />
+            )}
+
+            <SelectorRadioGroup
+              options={chartOptions}
+              state={selectChart}
+              setState={setSelectChart}
+            />
+            <FormControlLabel
+              sx={{ position: "relative", bottom: "17px" }}
+              control={
+                <Checkbox
+                  checked={showGstInMobile}
+                  onChange={() => {
+                    setShowGstInMobile((prev) => !prev);
+                  }}
+                  name="jason"
+                />
+              }
+              label="Display Sales total with GST in Table (working on this)"
+            />
+          </Box>
         </Box>
-      </Box>
+      )}
     </Box>
   );
 };

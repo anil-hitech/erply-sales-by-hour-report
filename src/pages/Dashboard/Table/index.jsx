@@ -47,7 +47,7 @@ const Table = ({ showGSTMobile }) => {
 
   return (
     <Box
-      id="reportTable"
+      className="reportTable"
       width={{ xs: "90vw", md: "flex-basis" }}
       sx={{
         display: { sx: "block", md: "flex" },

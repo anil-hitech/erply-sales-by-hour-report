@@ -18,7 +18,7 @@ a {
 
 .dx-datagrid-headers.dx-datagrid-nowrap {
   position: sticky;
-  top: 66px;
+  top: calc(var(--appDrawerHeight) + 2px);
   z-index: 120;
   background-color: white;
 }
@@ -30,17 +30,22 @@ a {
     margin-top: 30px;
   }
 
-  #reportTable {
+  .reportTable {
     width: 100%;
     margin: 20px;
     /* margin-left: 200px; */
   }
 
-  #reportChart {
+  .reportChart {
     width: 1000px;
   }
-}
 
+  @page {
+    size: 200mm 250mm;
+    margin: 25px;
+  }
+}
+/* 
 @media screen and (max-width: 1566px) {
   .dx-datagrid-headers.dx-datagrid-nowrap {
     top: 117px;
@@ -65,4 +70,4 @@ a {
   .dx-datagrid-headers.dx-datagrid-nowrap {
     top: 215px;
   }
-}
+} */
