@@ -5,5 +5,6 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   base: "/erply-sales-by-hour-report/",
+  // base: "report/sales-by-hour",
   server: { host: true },
 });

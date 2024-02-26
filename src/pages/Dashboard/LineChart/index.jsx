@@ -30,9 +30,10 @@ const generateArrayOfNumber = () =>
     .fill()
     .map((_, index) => (index >= 10 ? index + ":00" : "0" + index + ":00"));
 
-const LineChart = ({ data, yAxisName, chartName }) => {
+const LineChart = ({ data, yAxisName, chartName, label }) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
+
   return (
     <Line
       data={{
@@ -42,7 +43,7 @@ const LineChart = ({ data, yAxisName, chartName }) => {
         ),
         datasets: [
           {
-            label: "Net-Sales($)",
+            label: label,
             data: data?.data,
             fill: {
               target: "origin",
@@ -123,6 +124,7 @@ LineChart.propTypes = {
   data: PropTypes.object,
   yAxisName: PropTypes.string,
   chartName: PropTypes.string,
+  label: PropTypes.string,
 };
 
 export default LineChart;
