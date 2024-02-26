@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Checkbox,
@@ -16,7 +16,6 @@ import { useAppContext } from "../../context/AppContext";
 import LoadPanel from "devextreme-react/load-panel";
 
 const chartOptions = ["Net Sales with GST", "Customer Count"];
-const ChartContext = createContext();
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -73,52 +72,51 @@ const Dashboard = () => {
           paddingTop={"10px"}
         >
           <Table showGSTMobile={showGstInMobile} />
-          <ChartContext.Provider value={{ chartOptions, selectChart }}>
-            <Box
-              width={{ xs: "100%", md: "800px", lg: "1000px" }}
-              height={{ xs: "400px", md: "350px" }}
-              className="reportChart"
-            >
-              {selectChart === chartOptions[0] && (
-                <LineChart
-                  data={dataGenerator("salesWithGST")}
-                  yAxisName="Net Sales (AUD)"
-                  chartName={chartOptions[0]}
-                  label="Net-Sales($)"
-                />
-              )}
 
-              {selectChart === chartOptions[1] && (
-                <LineChart
-                  data={dataGenerator("noOfSales")}
-                  yAxisName="Customer Count"
-                  chartName={chartOptions[1]}
-                  label="Customer Count "
-                />
-              )}
-
-              <SelectorRadioGroup
-                options={chartOptions}
-                state={selectChart}
-                setState={setSelectChart}
+          <Box
+            width={{ xs: "100%", md: "800px", lg: "1000px" }}
+            height={{ xs: "400px", md: "350px" }}
+            className="reportChart"
+          >
+            {selectChart === chartOptions[0] && (
+              <LineChart
+                data={dataGenerator("salesWithGST")}
+                yAxisName="Net Sales (AUD)"
+                chartName={chartOptions[0]}
+                label="Net-Sales($)"
               />
-              {smMatchs && (
-                <FormControlLabel
-                  sx={{ position: "relative", bottom: "17px" }}
-                  control={
-                    <Checkbox
-                      checked={showGstInMobile}
-                      onChange={() => {
-                        setShowGstInMobile((prev) => !prev);
-                      }}
-                      name="jason"
-                    />
-                  }
-                  label="Display Sales total with GST in Table "
-                />
-              )}
-            </Box>
-          </ChartContext.Provider>
+            )}
+
+            {selectChart === chartOptions[1] && (
+              <LineChart
+                data={dataGenerator("noOfSales")}
+                yAxisName="Customer Count"
+                chartName={chartOptions[1]}
+                label="Customer Count "
+              />
+            )}
+
+            <SelectorRadioGroup
+              options={chartOptions}
+              state={selectChart}
+              setState={setSelectChart}
+            />
+            {smMatchs && (
+              <FormControlLabel
+                sx={{ position: "relative", bottom: "17px" }}
+                control={
+                  <Checkbox
+                    checked={showGstInMobile}
+                    onChange={() => {
+                      setShowGstInMobile((prev) => !prev);
+                    }}
+                    name="jason"
+                  />
+                }
+                label="Display Sales total with GST in Table "
+              />
+            )}
+          </Box>
         </Box>
       )}
       <Snackbar
@@ -135,7 +133,5 @@ const Dashboard = () => {
     </Box>
   );
 };
-
-export const useChartContext = () => useContext(ChartContext);
 
 export default Dashboard;
