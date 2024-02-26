@@ -100,19 +100,26 @@ const FilterSection = () => {
             control: (baseStyles) => {
               return {
                 ...baseStyles,
-
                 width: "auto",
                 wordWrap: "break-word",
+              };
+            },
+
+            menuList: (baseStyles) => {
+              return {
+                ...baseStyles,
+                maxHeight: "500px",
               };
             },
 
             option: (baseStyles, state) => ({
               ...baseStyles,
               color: "black",
-              backgroundColor: state.isSelected ? "#efefef" : "white",
+              backgroundColor: state.isSelected ? "#e3e9ff" : "white",
               cursor: "pointer",
               ":hover": {
-                backgroundColor: state.isSelected ? "#efefef" : "#bdcaff",
+                // backgroundColor: state.isSelected ? "#efefef" : "#bdcaff",
+                backgroundColor: state.isSelected ? "#e3e9ff" : "#efefef",
               },
             }),
 
