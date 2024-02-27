@@ -60,7 +60,10 @@ const AppContextProvider = ({ children }) => {
     await api
       .post(endpoints.getSalesByHours, formData)
       .then((res) => {
-        setSalesData(res.data.records.data);
+        const filterNullHour = res.data.records.data?.filter(
+          (sale) => sale.hour !== null
+        );
+        setSalesData(filterNullHour);
         setLocations(res.data.records.warehouseDetail);
 
         if (res.data.status === "failed") {
