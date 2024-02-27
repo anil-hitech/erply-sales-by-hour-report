@@ -4,7 +4,7 @@ import axios from "axios";
 // const token = loginData && loginData;
 
 let api = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL_NEW,
+  baseURL: import.meta.env.VITE_BASE_URL,
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",

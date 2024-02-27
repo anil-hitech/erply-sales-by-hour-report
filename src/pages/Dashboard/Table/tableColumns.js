@@ -9,8 +9,7 @@ const columns = [
     caption: "Hour",
     width: "auto",
     alignment: "center",
-    customizeText: ({ value }) =>
-      Number(value) < 10 ? "0" + value + ":00" : value + ":00",
+    customizeText: ({ value }) => value + ":00",
   },
   {
     dataField: "soldQuantity",
@@ -27,11 +26,11 @@ const columns = [
     customizeText: ({ value }) => parseInt(value).toLocaleString(),
   },
   {
-    dataField: "netTotal",
+    dataField: "netSalesTotal",
     caption: "Net Sales total",
     width: "auto",
     alignment: "center",
-    calculateCellValue: (rowData) => handleNullValue(rowData.netTotal),
+    calculateCellValue: (rowData) => handleNullValue(rowData.netSalesTotal),
     customizeText: ({ value }) => priceFormatter(value),
   },
   {
@@ -66,7 +65,7 @@ const columns = [
 
 export const summaryRow = [
   "noOfSales",
-  "netTotal",
+  "netSalesTotal",
   "salesWithGST",
   "discountTotal",
   "soldQuantity",

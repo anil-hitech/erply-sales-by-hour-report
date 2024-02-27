@@ -83,7 +83,7 @@ const Table = ({ showGSTMobile }) => {
               summaryType="sum"
               displayFormat={(value) =>
                 [
-                  "netTotal",
+                  "netSalesTotal",
                   "salesWithGST",
                   "discountTotal",
                   "gstTotal",

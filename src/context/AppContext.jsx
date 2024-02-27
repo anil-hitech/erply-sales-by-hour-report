@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import api from "../api";
 import PropTypes from "prop-types";
-import { endpointsNew } from "../api/endpoints";
+import { endpoints } from "../api/endpoints";
 import formatDate from "../utilities/formatDate";
 
 const AppContext = createContext();
@@ -58,14 +58,10 @@ const AppContextProvider = ({ children }) => {
       );
 
     await api
-      .post(endpointsNew.getSalesByHour, formData)
+      .post(endpoints.getSalesByHours, formData)
       .then((res) => {
-        if (res.data.data) {
-          setSalesData(
-            res.data?.data.sort((a, b) => Number(a.hour) - Number(b.hour))
-          );
-          setLocations(res.data.warehouseDetail);
-        }
+        setSalesData(res.data.records.data);
+        setLocations(res.data.records.warehouseDetail);
 
         if (res.data.status === "failed") {
           setIsToaster(true);
